@@ -2,8 +2,12 @@ package com.example.app;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.ClipboardManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +44,24 @@ public class MainActivity extends AppCompatActivity {
     private TessBaseAPI tessBaseAPI;
     private Uri outputFileDir;
     private String mCurrentPhotoPath;
+    Button button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         textView = (TextView) this.findViewById(R.id.textView);
+        button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("TextView", textView.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(MainActivity.this, "Copied", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         final Activity activity = this;
         checkPermission();
         this.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
