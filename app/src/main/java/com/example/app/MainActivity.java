@@ -7,7 +7,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.ClipboardManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -186,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
         }
         String dataPath = getExternalFilesDir("/").getPath() + "/";
         tessBaseAPI.init(dataPath, "deu+eng");
+        // set psm to 3 (=Fully automatic page segmentation, but no OSD)
+        tessBaseAPI.setPageSegMode(TessBaseAPI.PageSegMode.PSM_AUTO);
         tessBaseAPI.setImage(bitmap);
         String retStr = "No result";
         try{
