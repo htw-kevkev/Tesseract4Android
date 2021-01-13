@@ -47,7 +47,7 @@ public class SVEventHandler extends PBasicInputEventHandler implements
   public Timer timer;
 
   /** The window which the event corresponds to. */
-  private SVWindow svWindow;
+  private final SVWindow svWindow;
 
   /** These are used to determine a selection size (for SVET_SELECTION). */
   private int lastX = 0;
@@ -63,7 +63,7 @@ public class SVEventHandler extends PBasicInputEventHandler implements
   /** For Drawing a rubber-band rectangle for selection */
   private int startX = 0;
   private int startY = 0;
-  private float rubberBandTransparency = 0.5f;
+  private final float rubberBandTransparency = 0.5f;
   private PNode selection = null;
 
   /** The string entered since the last enter. Since the client

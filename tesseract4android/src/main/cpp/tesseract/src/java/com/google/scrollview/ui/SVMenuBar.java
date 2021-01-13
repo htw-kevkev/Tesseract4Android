@@ -30,11 +30,11 @@ import javax.swing.JMenuBar;
  */
 public class SVMenuBar implements ActionListener {
   /** The root entry to add items to. */
-  private JMenuBar root;
+  private final JMenuBar root;
   /** Contains a map of item name to its actual entry. */
-  private HashMap<String, SVAbstractMenuItem> items;
+  private final HashMap<String, SVAbstractMenuItem> items;
   /** The window the menubar belongs to. */
-  private SVWindow svWindow;
+  private final SVWindow svWindow;
 
   /**
    * Create a new SVMenuBar and place it at the top of the ScrollView window.

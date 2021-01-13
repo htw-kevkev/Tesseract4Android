@@ -33,11 +33,11 @@ import javax.swing.JPopupMenu;
 
 public class SVPopupMenu implements ActionListener {
   /** The root entry to add items to. */
-  private JPopupMenu root;
+  private final JPopupMenu root;
   /** Contains a map of item name to its actual entry. */
-  private HashMap<String, SVAbstractMenuItem> items;
+  private final HashMap<String, SVAbstractMenuItem> items;
   /** The window the menubar belongs to. */
-  private SVWindow svWindow;
+  private final SVWindow svWindow;
 
   /**
    * Create a new SVPopupMenu and associate it with a ScrollView window.

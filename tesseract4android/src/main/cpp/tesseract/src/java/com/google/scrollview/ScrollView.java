@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -42,8 +43,8 @@ public class ScrollView {
   private static Socket socket;
   private static PrintStream out;
   public static BufferedReader in;
-  public static float polylineXCoords[];  // The coords being received.
-  public static float polylineYCoords[];  // The coords being received.
+  public static float[] polylineXCoords;  // The coords being received.
+  public static float[] polylineYCoords;  // The coords being received.
   public static int polylineSize;       // The size of the coords arrays.
   public static int polylineScanned;    // The size read so far.
   private static ArrayList<SVWindow> windows;  // The id to SVWindow map.
@@ -63,14 +64,9 @@ public class ScrollView {
     }
     String str = e.toString();
     // Send the whole thing as UTF8.
-    try {
-      byte [] utf8 = str.getBytes("UTF8");
+      byte [] utf8 = str.getBytes(StandardCharsets.UTF_8);
       out.write(utf8, 0, utf8.length);
-    } catch (java.io.UnsupportedEncodingException ex) {
-      System.out.println("Oops... can't encode to UTF8... Exiting");
-      System.exit(0);
-    }
-    out.println();
+      out.println();
     // Flush the output and check for errors.
     boolean error = out.checkError();
     if (error) {
@@ -387,7 +383,7 @@ public class ScrollView {
       out = new PrintStream(socket.getOutputStream(), true, "UTF-8");
       in =
           new BufferedReader(new InputStreamReader(socket.getInputStream(),
-              "UTF8"));
+                  StandardCharsets.UTF_8));
     } catch (IOException e) {
       // Something went wrong and we were unable to set up a connection. This is
       // pretty

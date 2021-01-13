@@ -40,11 +40,7 @@ class SVCheckboxMenuItem extends SVAbstractMenuItem {
   @Override
   public void performAction(SVWindow window, SVEventType eventType) {
     // Checkbox entry - trigger and send event.
-    if (bvalue) {
-      bvalue = false;
-    } else {
-      bvalue = true;
-    }
+      bvalue = !bvalue;
     SVEvent svme = new SVEvent(eventType, window, id, getValue());
     ScrollView.addMessage(svme);
   }

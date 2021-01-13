@@ -27,5 +27,5 @@ public enum SVEventType {
   SVET_MOTION, // The mouse has moved with no button pressed.
   SVET_HOVER, // The mouse has stayed still for a second.
   SVET_POPUP, // A command selected through a popup menu
-  SVET_MENU; // A command selected through the menubar
+  SVET_MENU // A command selected through the menubar
 }

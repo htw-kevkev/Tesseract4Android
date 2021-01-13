@@ -45,11 +45,31 @@ public class MainActivity extends AppCompatActivity {
     private String mCurrentPhotoPath;
     Button button2;
 
+    // This should load opencv library but fails with an error:
+    // No implementation found for long org.opencv.core.Mat.n_Mat()
+    // Using this thread: https://stackoverflow.com/questions/35090838/no-implementation-found-for-long-org-opencv-core-mat-n-mat-error-using-opencv?rq=1
+    // ... did not help
+//    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+//        @Override
+//        public void onManagerConnected(int status) {
+//            switch (status) {
+//                case LoaderCallbackInterface.SUCCESS:
+//                {
+//                    Log.i(TAG, "OpenCV loaded successfully");
+//                } break;
+//                default:
+//                {
+//                    super.onManagerConnected(status);
+//                } break;
+//            }
+//        }
+//    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView) this.findViewById(R.id.textView);
+        textView = this.findViewById(R.id.textView);
         button2 = findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 //            String fileList[] = getAssets().list("/tessdata");
-            String fileList[] = getAssets().list("");
+            String[] fileList = getAssets().list("");
             for(String fileName : fileList){
                 String pathToDataFile = dir + "/" + fileName;
                 if(!(new File(pathToDataFile)).exists() && fileName.contains("traineddata")){
@@ -170,6 +190,37 @@ public class MainActivity extends AppCompatActivity {
             options.inJustDecodeBounds = false;
             options.inSampleSize = 6;
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, options);
+
+            // This should load opencv library but fails with an error:
+            // No implementation found for long org.opencv.core.Mat.n_Mat()
+            // Using this thread: https://stackoverflow.com/questions/35090838/no-implementation-found-for-long-org-opencv-core-mat-n-mat-error-using-opencv?rq=1
+            // ... did not help
+//            if (!OpenCVLoader.initDebug()) {
+//                Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
+//                OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION, this, mLoaderCallback);
+//
+//                // convert bitmap to mat for opencv processing
+//                Mat src = new Mat();
+//                Utils.bitmapToMat(bitmap, src);
+//
+//                // === blur image ===
+//                // create destination matrix
+//                Mat dst = new Mat(src.rows(), src.cols(), src.type());
+//                // apply GaussianBlur on the Image
+//                Imgproc.GaussianBlur(src, dst, new Size(5, 5), 0);
+//
+//                // convert mat back to bitmap for ocr processing
+//                Utils.matToBitmap(dst, bitmap);
+//
+//                String result = this.getText(bitmap);
+//                textView.setText(result);
+//
+//            } else {
+//                Log.d(TAG, "OpenCV library found inside package. Using it!");
+//                mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+//                String result = this.getText(bitmap);
+//                textView.setText(result);
+//            }
             String result = this.getText(bitmap);
             textView.setText(result);
         }catch (Exception e){

@@ -46,7 +46,7 @@ public class TessBaseAPI {
 	/**
 	 * Used by the native implementation of the class.
 	 */
-	private long mNativeData;
+	private final long mNativeData;
 
 	static {
 		System.loadLibrary("jpeg");
